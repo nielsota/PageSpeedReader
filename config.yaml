@@ -1,0 +1,31 @@
+# openapi2-functions.yaml
+    swagger: '2.0'
+    info:
+      title: page-speed-api 
+      description: Sample API on API Gateway with a Google Cloud Functions backend
+      version: 1.0.0
+    schemes:
+      - https
+    produces:
+      - application/json
+    paths:
+      /get_pagespeed:
+        get:
+          summary: Get pagespeed statistics for a single page
+          operationId: pagespeedsingle
+          x-google-backend:
+            address: https://us-central1-seo-pagespeed-insights-352108.cloudfunctions.net/page-speed-single-call
+            deadline: 100.0
+          security:
+          - api_key: []
+          responses:
+            '200':
+              description: A successful response
+              schema:
+                type: string
+    securityDefinitions:
+      # This section configures basic authentication with an API key.
+      api_key:
+        type: "apiKey"
+        name: "key"
+        in: "query"
